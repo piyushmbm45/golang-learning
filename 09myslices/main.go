@@ -28,4 +28,12 @@ func main() {
 	fmt.Println(sort.IntsAreSorted(highScore))
 	sort.Ints(highScore)
 	fmt.Println(highScore)
+
+	// how to remove a value based on index
+	var course = []string{"reactjs", "javascript", "nodejs", "python"}
+	fmt.Println(course)
+	var index int = 2
+	course = append(course[:index], course[index+1:]...)
+	fmt.Println(course)
+
 }
