@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -11,7 +12,8 @@ func main() {
 	fmt.Println("Welcome to web request in go lang")
 	fmt.Println("Please start backend server")
 	// PerformGetRequest()
-	PerformPostJsonRequest()
+	// PerformPostJsonRequest()
+	PerformPostForm()
 }
 
 func PerformGetRequest() {
@@ -51,4 +53,23 @@ func PerformPostJsonRequest() {
 	defer response.Body.Close()
 	content, _ := ioutil.ReadAll(response.Body)
 	fmt.Println("json data", string(content))
+}
+
+func PerformPostForm() {
+	const myUrl = "http://localhost:8000/api/post-form/"
+
+	// formdata
+	data := url.Values{}
+	data.Add("firstname", "Piyush")
+	data.Add("lastname", "Jain")
+	data.Add("email", "piyush@go.dev")
+
+	response, err := http.PostForm(myUrl, data)
+
+	if err != nil {
+		panic(err)
+	}
+	defer response.Body.Close()
+	content, _ := ioutil.ReadAll(response.Body)
+	fmt.Println("body", string(content))
 }
